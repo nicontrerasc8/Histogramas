@@ -1,16 +1,30 @@
-html,
-body {
-  padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Rubik:wght@500&display=swap');
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
+:root{
+  --white: #edf9ff;
+  --orange: #ff6a49;
+  --black: #000829;
 }
-
-* {
-  box-sizing: border-box;
+nav{
+  background-color: var(--black);
+  color: var(--white);
+  padding: 2rem 5vw;
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+nav h1{
+  font-size: clamp(30px, calc(2vw + 10px), calc(2vw + 10px));
+}
+h1, h2, h3, h4, h5, button{
+  font-family: 'Balsamiq Sans', cursive;
+  font-weight: 500;
+}
+p{
+  font-family: 'Rubik', sans-serif;
 }
