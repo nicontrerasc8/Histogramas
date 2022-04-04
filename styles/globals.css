@@ -4,13 +4,13 @@
   padding: 0;
 }
 :root{
-  --white: #edf9ff;
+  --white: #ffffff;
   --orange: #ff6a49;
-  --black: #000829;
-  --secondary-black: #000e48;
+  --black: #000000;
+  --secondary-white: #ffffff;
 }
 body{
-  background-color: var(--secondary-black);
+  background-color: var(--secondary-white);
 }
 nav{
   background-color: var(--black);
@@ -34,7 +34,7 @@ p{
 }
 .page{
   margin-top: 2rem;
-  color: var(--white);
+  color: var(--black);
   padding: 1rem 5vw;
 }
 .align-center{
@@ -72,7 +72,7 @@ label{
   background-color: transparent;
   border: none;
   font-size:clamp(20px, calc(1vmax + 10px),calc(1vmax + 10px));
-  color: var(--white);
+  color: var(--black);
 }
 .double-team{
   display: flex;
@@ -85,8 +85,15 @@ label{
   font-size: clamp(30px, calc(1vmax + 1rem), calc(1vmax + 1rem));
   padding: 10px;
   background-color: var(--orange);
-  color: var(--white);
-  border: 4px solid var(--secondary-black);
+  color: var(--black);
+  border: 4px solid var(--secondary-white);
   border-radius: 10px;
   cursor: pointer;
+}
+.img-canvas{
+  height: 350px;
+  width: 350px;
+  margin: 1rem 0;
+  border-radius: 5px;
+  border: 4px solid var(--orange);
 }
