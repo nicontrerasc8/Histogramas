@@ -1,7 +1,18 @@
-import NavBar from "../Components/NavBar";
+import Link from "next/link";
 
 export default function Home() {
   return <>
-    <NavBar/>
+    <div className="page double-team">
+      <Link href={"/ecualizar"}>
+      <button>
+        Ecualizar un histogramas
+      </button>
+      </Link>
+      <Link href={"/expandir"}>
+      <button>
+        Expandir un histograma
+      </button>
+      </Link>
+    </div>
   </>
 }
