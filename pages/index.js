@@ -5,7 +5,7 @@ export default function Home() {
     <div className="page double-team">
       <Link href={"/ecualizar"}>
       <button>
-        Ecualizar un histogramas
+        Ecualizar un histograma
       </button>
       </Link>
       <Link href={"/expandir"}>

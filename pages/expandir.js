@@ -54,6 +54,7 @@ const Expansion = () => {
     const [ShowHistogram, setShowHistogram] = useState(false)
     const [ShowTable, setShowTable] = useState(false)
     const [Matriz, setMatriz] = useState([])
+    const [NewMatriz, setNewMatriz] = useState([])
     const [Pendiente, setPendiente] = useState(0)
     const [B, setB] = useState(0)
     const canvasRef = useRef(null)
@@ -64,9 +65,6 @@ const Expansion = () => {
         setPendiente(7/(Value2-Value1))
         setPendent1(Value1)
         setPendent2(Value2)
-        setB(
-            -(Pendent1*Value1
-                )        )
         // for (let i = 0; i < 1000; i++) {
         //     setArray(Array => [...Array, Math.floor(Math.random() * (Value2 - Value1 + 1)) + Value1])
         // }
@@ -75,9 +73,10 @@ const Expansion = () => {
 
     const ShowProcedure = () =>{
         setMatriz([])
-        console.log(TableArray)
+        setNewMatriz([])
         for (let i = Value1; i <= Value2; i++) {
             var counter = 0;
+            var newValue = Pendiente*i + B
             for (let j = 0; j < TableArray.length; j++) {
                 if(TableArray[j].n === i) {
                     ++counter
@@ -85,6 +84,7 @@ const Expansion = () => {
             }
             setMatriz(a => [...a, {
                 n: i,
+                newX: newValue,
                 c: counter,
             }])
         }
@@ -114,14 +114,25 @@ const Expansion = () => {
                         n: rand,
                         x: newRand
                     })
+                    ctx.strokeStyle = `rgb(
+                        ${Math.floor(255 / 8 * rand)},
+                        ${Math.floor(255 / 8 * rand)},
+                        ${Math.floor(255 / 8 * rand)})`;
+
                     ctx.fillStyle = `rgb(
                             ${Math.floor(255 / 8 * rand)},
                             ${Math.floor(255 / 8 * rand)},
                             ${Math.floor(255 / 8 * rand)})`;
-                    HSctx.fillStyle = `rgb(
-                        ${Math.floor(255 / 8 * newRand)},
-                        ${Math.floor(255 / 8 * newRand)},
-                        ${Math.floor(255 / 8 * newRand)})`;
+
+                    HSctx.strokeStyle = `rgb(
+                        ${Math.floor(255 / 8 * Math.round(newRand))},
+                        ${Math.floor(255 / 8 * Math.round(newRand))},
+                        ${Math.floor(255 / 8 * Math.round(newRand))})`;
+                    
+                        HSctx.fillStyle = `rgb(
+                        ${Math.floor(255 / 8 * Math.round(newRand))},
+                        ${Math.floor(255 / 8 * Math.round(newRand))},
+                        ${Math.floor(255 / 8 * Math.round(newRand))})`;
              
                 ctx.fillRect(x, y, ctx.canvas.width/m, ctx.canvas.height/m);
                 HSctx.fillRect(x, y, ctx.canvas.width/m, ctx.canvas.height/m);
@@ -134,6 +145,8 @@ const Expansion = () => {
       setTableArray(arr)
 
       console.log(arr[0])
+      setB(
+        -(Pendiente*Value1))
 
 
     }, [Pendent1, Pendent2])
@@ -152,29 +165,41 @@ const Expansion = () => {
       <button className='do-it' type='button' onClick={Create}>
           Crear el histograma
       </button>
-      {
-          ShowHistogram && <>
-          <canvas ref={canvasRef} className='img-canvas'/>
+          <div className={ShowHistogram ? 'align-center' : 'display-none'}>
+          <canvas ref={canvasRef} className={'img-canvas'}/>
           <h1>Nuevo histograma expandido:</h1>
           <canvas ref={HistogramRef} className='img-canvas'/>
-          <button className='do-it'  onClick={ShowProcedure}>
-              Ver el procedimiento
-          </button>
-          </>
-      }
+          <button className='do-it' onClick={ShowProcedure}>Mostrar procedimiento</button>
+          </div>
       {
           ShowTable && <>
+          <h5>Lo primero que debemos hacer, es hallar la frecuencia de tonalidad de píxeles en el diagrama inicial:</h5>
           {
               Matriz && Matriz.map((data, idx) => {
                   return <p key={idx}>Tonalidad {data.n}: {data.c} píxeles</p>
               })
-          }
-            <p>Para obtener el nuevo histograma, debemos hallar la pendiente entre estos dos histogramas:</p>
-            <p>Pendiente: (7 - 0) / ({Pendent1} - {Pendent2}) = {Pendiente}</p>
-            <p>Luego, para hallar la B debemos igualar la ecuación</p>
-            <p>0 = {Pendiente} * {Value1} + B</p>
-            <p>B = {B}</p>
-            
+          } 
+          
+          <h5>Para obtener el nuevo histograma, debemos hallar la pendiente entre estos dos histogramas:</h5>
+            <p>Pendiente: (7 - 0) / ({Pendent2} - {Pendent1}) = {Pendiente}</p>
+            <h5>Luego, para hallar la B debemos igualar la ecuación</h5>
+            <p>Para ello, tomamos Y = 0 y X = {Value1} y los reemplazamos en la ecuación.</p>
+            <p>0 = {Math.round(Pendiente * 100) / 100} * {Value1} + B</p>
+            <p>B = {Math.round(B * 100) / 100}</p>
+            <h5>Entonces, la función sería la siguiente:</h5>
+            <p>f(x) = {Pendiente}x + {B}</p>
+            <h5>Ahora, hayamos los nuevos valores reemplaando la función:</h5>
+            {
+              Matriz && Matriz.map((data, idx) => {
+                  return <p key={idx}>f({data.n}) = ({Pendiente} * {data.n}) + {B} = {Math.round(data.newX)}</p>
+              })
+          } 
+          <h5>Entonces, tenemos las siguientes tonalidades con las siguientes frecuencias:</h5>
+          {
+              Matriz && Matriz.map((data, idx) => {
+                  return <p key={idx}>Tonalidad {Math.round(data.newX)}: {data.c} píxeles</p>
+              })
+          } 
       </>
       }
   </div>

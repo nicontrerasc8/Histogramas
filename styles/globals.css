@@ -35,7 +35,7 @@ p{
 .page{
   margin-top: 2rem;
   color: var(--black);
-  padding: 1rem 5vw;
+  padding: 1rem 10vw;
 }
 .align-center{
   display: flex;
@@ -96,4 +96,12 @@ label{
   margin: 1rem 0;
   border-radius: 5px;
   border: 4px solid var(--orange);
+}
+.display-none{
+  display: none;
+}
+h5{
+  font-size: calc(15px + 1vmax);
+  margin: 1rem 0;
+  text-align: center;
 }
