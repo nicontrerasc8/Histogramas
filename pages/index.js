@@ -45,7 +45,7 @@ export default function Home() {
           id="file"
           onChange={imageChange}
         /> 
-         <label for="file">
+         <label htmlFor="file">
           Elige tu imagen
         </label>
     <canvas ref={canvasRef} className={IsImageOn ? 'img-canvas' : 'display-none'}/>

@@ -8,10 +8,9 @@
   --light-blue: #16dfdf;
   --purple: #7f15cf;
   --black: #000000;
-  --secondary-white: #ffffff;
 }
 body{
-  background-color: var(--secondary-white);
+  background-color: var(--white);
 }
 nav{
   background-image: linear-gradient(to right, var(--light-blue), var(--purple));
