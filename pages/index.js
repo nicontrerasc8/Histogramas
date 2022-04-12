@@ -39,8 +39,8 @@ export default function Home() {
           for (let i = 0; i < scannedImage.data.length; i+=4) {
             var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
             var AV = Math.floor(total/3)
-            if(AV < 28) AV = 28
-            if(AV > 228) AV = 228 
+            if(AV < 42) AV = 42
+            if(AV > 214) AV = 214 
             scannedImage.data[i] = AV;
             scannedImage.data[i+1] = AV;
             scannedImage.data[i+2] = AV;
