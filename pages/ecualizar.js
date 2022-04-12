@@ -40,30 +40,30 @@ const Ecualizar = () => {
          const ctx = canvas.getContext('2d')
          const HSctx = histogram.getContext('2d')
          var x = 0;
-         for (let i = 0; i < GeneralArray.length; i++) {
-            for (let j = 0; j < GeneralArray[i].fr; j++) {
-            
-                   ctx.fillStyle = `rgb(
-                    ${Math.floor(GeneralArray[i].n)},
-                    ${Math.floor(GeneralArray[i].n)},
-                    ${Math.floor(GeneralArray[i].n)})`;
-                    ctx.fillRect(x, 0, ctx.canvas.width/m, ctx.canvas.height);
-
-                    
-                        HSctx.fillStyle = `rgb(
-                        ${Math.floor(Math.round(GeneralArray[i].aF))},
-                        ${Math.floor(Math.round(GeneralArray[i].aF))},
-                        ${Math.floor(Math.round(GeneralArray[i].aF))})`;
-                    HSctx.fillRect(x, 0, ctx.canvas.width/m, ctx.canvas.height);
+            for (let i = 0; i < 3; i++) {
+                for (let i = 0; i < GeneralArray.length; i++) {
+                    for (let j = 0; j < GeneralArray[i].fr; j++) {
+                           ctx.fillStyle = `rgb(
+                            ${Math.floor(GeneralArray[i].n)},
+                            ${Math.floor(GeneralArray[i].n)},
+                            ${Math.floor(GeneralArray[i].n)})`;
+                            ctx.fillRect(x, 0, ctx.canvas.width/m, ctx.canvas.height);
+                            
+                                HSctx.fillStyle = `rgb(
+                                ${Math.floor(Math.round(GeneralArray[i].aF))},
+                                ${Math.floor(Math.round(GeneralArray[i].aF))},
+                                ${Math.floor(Math.round(GeneralArray[i].aF))})`;
+                            HSctx.fillRect(x, 0, ctx.canvas.width/m, ctx.canvas.height);
+                    }
+                    x+=canvas.width/m
+                }
             }
-            x+=canvas.width/m
-        }
         }
      }, [GeneralArray])
      
 
   return <div className='page align-center'>
-      <h1>Ecualización de un histograma de 1024 píxeles en 256 tonalidades de grises.</h1>
+      <h1>Ecualización de un histograma de 1024 píxeles en 25 tonalidades de grises.</h1>
       <canvas ref={canvasRef} className={'img-canvas'}/>
       <canvas ref={HistogramRef} className='img-canvas'/>
   </div>
