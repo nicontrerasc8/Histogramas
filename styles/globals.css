@@ -5,12 +5,14 @@
 }
 :root{
   --white: #ffffff;
-  --light-blue: #16dfdf;
+  --light-blue: #00b6da;
   --purple: #7f15cf;
   --black: #000000;
 }
 body{
-  background-color: var(--white);
+  background-color: #111111;
+  color: var(--white);
+  text-align: center;
 }
 nav{
   background-image: linear-gradient(to right, var(--light-blue), var(--purple));
@@ -29,6 +31,9 @@ h1, h2, h3, h4, h5, button{
   font-family: 'Balsamiq Sans', cursive;
   font-weight: 500;
 }
+h1{
+  font-size: calc(2vmax + 10px);
+}
 p{
   font-family: 'Rubik', sans-serif;
 }
@@ -41,7 +46,7 @@ label{
 }
 .page{
   margin-top: 2rem;
-  color: var(--black);
+  color: var(--white);
   padding: 1rem 10vw;
 }
 .align-center{
@@ -50,10 +55,7 @@ label{
   align-items: center;
   justify-content: center;
 }
-h1{
-  font-size: clamp(30px, calc(2vmax + 1rem), calc(2vmax + 1rem));
-  margin-bottom: 1rem;
-}
+
 p{
   margin-bottom: 1rem;
 }
@@ -72,7 +74,7 @@ p{
 }
 label{
   font-weight: 600;
-  background-image: linear-gradient(to right, #16dfdf, #7f15cf);
+  background-image: linear-gradient(to right, var(--light-blue), var(--purple));
   color: var(--white);
   border-radius: 5px;
   font-size: clamp(20px, calc(1vmax + 10px),calc(1vmax + 10px));

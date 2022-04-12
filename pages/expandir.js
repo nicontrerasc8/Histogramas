@@ -109,7 +109,7 @@ const Expansion = () => {
         for (let i = 0; i < m; i++) {
             for (let j = 0; j < m; j++) {
                     var rand = Math.floor(Math.random() * (Value2-Value1+1) + Value1);
-                    var newRand = rand*(7/(Value2-Value1)) - (7/(Value2-Value1))*Value1;
+                    var newRand = rand*(7/(Value2-Value1)) - (7/ (Value2 - Value1)) * Value1;
                     arr.push({
                         n: rand,
                         x: newRand
