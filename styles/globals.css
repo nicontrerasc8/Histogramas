@@ -2,6 +2,7 @@
 *{
   margin: 0;
   padding: 0;
+  outline: none;
 }
 :root{
   --white: #ffffff;
@@ -24,7 +25,7 @@ nav{
   align-items: center;
   justify-content: center;
 }
-nav h1{
+nav h2{
   font-size: clamp(30px, calc(2vw + 10px), calc(2vw + 10px));
 }
 h1, h2, h3, h4, h5, button{
@@ -32,17 +33,22 @@ h1, h2, h3, h4, h5, button{
   font-weight: 500;
 }
 h1{
-  font-size: calc(2vmax + 10px);
+  font-size: calc(2vmax + 15px);
+  margin-bottom: 1rem;
 }
 p{
   font-family: 'Rubik', sans-serif;
 }
-input{
+input[type="file"]{
   display: none;
 }
 label{
   padding: 10px;
   background-color: var(--orange);
+}
+button{
+  background-image: linear-gradient(to right, var(--light-blue),var(--purple));
+  color: var(--white);
 }
 .page{
   margin-top: 2rem;
@@ -90,15 +96,14 @@ label{
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  margin-top: 1rem;
   align-items: center;
   justify-content: center;
 }
-.double-team button, .do-it{
+.double-team button{
   font-size: clamp(30px, calc(1vmax + 1rem), calc(1vmax + 1rem));
-  padding: 10px;
-  background-color: var(--orange);
-  color: var(--black);
-  border: 4px solid var(--secondary-white);
+  padding: 20px;
+  border: none;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -116,4 +121,40 @@ h5{
   font-size: calc(15px + 1vmax);
   margin: 1rem 0;
   text-align: center;
+}
+.euclides h1{
+  font-size: calc(1vmax + 1rem);
+}
+.euclides p{
+  margin: 10px 0;
+  font-size: calc(1vmax + 10px);
+}
+.euclides input{
+  font-size: calc(1vmax + 10px);
+  border-radius: 5px;
+  color: var(--white);
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.blue-input{
+  background-color: var(--light-blue);
+  border: 3px solid var(--light-blue);
+}
+.purple-input{
+  background-color: var(--purple);
+  border: 3px solid var(--purple);
+}
+.light-blue{
+  color: var(--light-blue);
+}
+.euclides button{
+  font-size: calc(1vmax + 10px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin: 1rem 0;
+}
+.euclides h1{
+  margin-top: 1rem;
 }

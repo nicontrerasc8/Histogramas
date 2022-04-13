@@ -87,20 +87,35 @@ export default function Home() {
   };
   
   return <>
-    <div className="page">
-      <h1>¡Hola! Somos un grupo de estudiantes de UPC y hemos elaborado este programa. Elige si deseas ecualizar una imagen o si deseas expandirla.</h1>
-       <section className="double-team">
-       <Link href={"/ecualizar"}>
+    <div className="page align-center">
+      <h1>Expansión de un histograma: </h1>
+    <input
+          accept="image/*"
+          type="file"
+          id="file"
+          onChange={imageChange}
+        /> 
+         <label htmlFor="file">
+          Elige tu imagen
+        </label>
+    <canvas ref={canvasRef} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
+    {
+      IsImageOn && <>
+        <p>La imagen que subiste está a una escala de blanco y negro de {MaxValue-MinValue} tonalidades. El valor más oscuro es de {MinValue} y el más claro es de {MaxValue}.</p>
+        <h1>A continuación, se muestra la imagen expandida en una escala de grises de 0 a 255:</h1>
+      </>
+    }
+    <canvas ref={expandido} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
+      {/* <Link href={"/ecualizar"}>
       <button>
         Ecualizar un histograma
       </button>
       </Link>
-      <Link href={"/expansion-de-histogramas"}>
+      <Link href={"/expandir"}>
       <button>
         Expandir un histograma
       </button>
-      </Link> 
-       </section>
+      </Link> */}
     </div>
   </>
 }
