@@ -6,11 +6,6 @@ export default function Home() {
 
   const canvasRef = useRef(null)
   const expandido = useRef(null)
-  const [IsImageOn, setIsImageOn] = useState(false)
-  const [DataArray, setDataArray] = useState([])
-  const [MinValue, setMinValue] = useState(undefined)
-  const [MaxValue, setMaxValue] = useState(undefined)
-
 
   const imageChange = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -90,7 +85,7 @@ export default function Home() {
     <div className="page">
       <h1>¡Hola! Somos un grupo de estudiantes de UPC y hemos elaborado este programa. Elige si deseas ecualizar una imagen o si deseas expandirla.</h1>
        <section className="double-team">
-       <Link href={"/ecualizar"}>
+       <Link href={"/ecualizacion-de-histogramas"}>
       <button>
         Ecualizar un histograma
       </button>
