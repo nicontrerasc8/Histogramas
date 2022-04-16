@@ -19,11 +19,81 @@ nav{
   background-image: linear-gradient(to right, var(--light-blue), var(--purple));
   color: var(--white);
   padding: 2rem 5vw;
+  position: sticky;
+  top: 0;
+  left: 0;
+  height: calc(5vh + 1rem);
   display: flex;
   text-align: center;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+.nav-aside{
+  position: sticky;
+  z-index: 2;
+  top: calc(5vh + 1rem - 5px);
+  left: 0;
+  background-image: linear-gradient(to right, var(--light-blue), var(--purple));
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 5%;
+}
+::-webkit-scrollbar{
+  width: 1rem;
+}
+::-webkit-scrollbar-track{
+  background: var(--black);
+}
+::-webkit-scrollbar-thumb{
+  background-image: linear-gradient(var(--light-blue),var(--purple));
+  border-radius: 10px;
+}
+nav .hamburger{
+  position: relative;
+  z-index: 7;
+  background-color: transparent;
+  padding: 5px;
+  height: 80px;
+  display: none;
+  cursor: pointer;
+transition: all .5s ease-in-out;
+justify-content: center;
+gap: 10px;
+flex-direction: column;
+align-items: center;
+}
+
+nav .hamburger span{
+  position: relative;
+  border-radius: 5px;
+  width: 55px;
+  transition: 500ms;
+  height: 6px;
+  background-color: var(--white);
+}
+.open-nav .hamburger-1{
+  transform: rotate(45deg);
+  top: 16px;
+}
+.open-nav .hamburger-2{
+  width: 0;
+}
+.open-nav .hamburger-3{
+  transform: rotate(-45deg);
+  bottom: 16px;
+}
+nav div{
+  display: flex;
+  flex-direction: row;
+  grid-gap: 10px;
+}
+@media screen and (max-width: 768px) {
+  nav .hamburger{display: flex;}
+  nav div{display: none;}
+  .nav-aside{display: flex;}
 }
 nav h2{
   font-size: clamp(30px, calc(2vw + 10px), calc(2vw + 10px));
@@ -71,7 +141,9 @@ button{
   align-items: center;
   justify-content: center;
 }
-
+.creditos p{
+font-size: calc(1vmax + 5px);
+}
 p{
   margin-bottom: 1rem;
 }

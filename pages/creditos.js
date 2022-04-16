@@ -1,13 +1,15 @@
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 
 const Credits = () => {
-  return <div className='page align-center'>
+  return <div className='page align-center creditos'>
        <h1>Créditos: </h1>
-       <p>Arián Tapia Motta</p>
-       <p>Flavia Cáceres Bustamante</p>
-       <p>Miluzka Vargas Inca</p>
-       <p>Andreas Calixto Castañeda </p>
-       <p>Nicolás Contreras Castellano</p>
+       <p><FontAwesomeIcon icon={faUser}/> Arián Tapia Motta</p>
+       <p><FontAwesomeIcon icon={faUser}/> Flavia Cáceres Bustamante</p>
+       <p><FontAwesomeIcon icon={faUser}/> Miluzka Vargas Inca</p>
+       <p><FontAwesomeIcon icon={faUser}/> Andreas Calixto Castañeda </p>
+       <p><FontAwesomeIcon icon={faUser}/> Nicolás Contreras Castellano</p>
   </div>
 }
 
