@@ -113,7 +113,7 @@ const Ecualizar = () => {
     {
       IsImageOn && <>
         <p>La imagen que subiste está a una escala de blanco y negro de {MaxValue-MinValue} tonalidades. El valor más oscuro es de {MinValue} y el más claro es de {MaxValue}.</p>
-        <h1>A continuación, se muestra la imagen expandida en una escala de grises de 0 a 255:</h1>
+        <h1>A continuación, se muestra la imagen ecualizada en las escalas en una escala de grises de 256 tonalidades:</h1>
       </>
     }
     <canvas ref={ecualizado} className={IsImageOn ? 'img-canvas' : 'display-none'}/>

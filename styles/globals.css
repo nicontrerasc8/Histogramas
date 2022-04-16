@@ -23,7 +23,7 @@ nav{
   text-align: center;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 nav h2{
   font-size: clamp(30px, calc(2vw + 10px), calc(2vw + 10px));
@@ -46,10 +46,20 @@ label{
   padding: 10px;
   background-color: var(--orange);
 }
+button.nav-btn{
+  background-image: none;
+  border:none;
+  border-radius: 5px;
+  color: var(--black);
+  font-size: calc(1vmax + 10px);
+  padding: 10px;
+  background-color: var(--white);
+}
 button{
   background-image: linear-gradient(to right, var(--light-blue),var(--purple));
   color: var(--white);
 }
+
 .page{
   margin-top: 2rem;
   color: var(--white);
@@ -129,6 +139,7 @@ h5{
   margin: 10px 0;
   font-size: calc(1vmax + 10px);
 }
+
 .euclides input{
   font-size: calc(1vmax + 10px);
   border-radius: 5px;
