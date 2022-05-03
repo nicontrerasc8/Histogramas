@@ -190,8 +190,8 @@ label{
   cursor: pointer;
 }
 .img-canvas{
-  height: 350px;
-  width: 350px;
+  height: clamp(300px, calc(20vmin + 30vmax),calc(20vmin + 30vmax));
+  width: clamp(300px, calc(20vmin + 30vmax),calc(20vmin + 30vmax));
   margin: 1rem 0;
   border-radius: 5px;
 }

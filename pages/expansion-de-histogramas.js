@@ -30,6 +30,7 @@ export default function Home() {
   const histogram1Ref = useRef(null)
   const expandido = useRef(null)
   const [FirstHistogramChart, setFirstHistogramChart] = useState([])
+  const [SecondHistogramChart, setSecondHistogramChart] = useState([])
   const histogram2Ref = useRef(null)
   const [IsImageOn, setIsImageOn] = useState(false)
   const [MinValue, setMinValue] = useState(undefined)
@@ -115,6 +116,15 @@ export default function Home() {
              ExpandedImage.data[i+2] = AV*pendent + B;
            }  
           expandedContext.putImageData(ExpandedImage, 0, 0);
+          var SecondHistogramArr = []
+          for (let i = 0; i < 256; i++) {
+            var c = 0  
+            for (let j = 0; j < ExpandedImage.data.length; j+=4) {
+                  if(ExpandedImage.data[j] === i) ++c
+              }
+              SecondHistogramArr.push(c)
+          }
+          setSecondHistogramChart(SecondHistogramArr)
           setIsImageOn(true)
 
       var x = 0;
@@ -149,7 +159,7 @@ export default function Home() {
         
         {/* Línea 103 Este es el canvas de la imagen original de una escala de 42 a 214  */}
     <canvas ref={canvasRef} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
-   {
+    {
      IsImageOn &&  <Bar
     
      data={{
@@ -157,7 +167,7 @@ export default function Home() {
        labels: Fs,
        datasets: [
          {
-           label: "Frecuencia en el histograma",
+           label: "Frecuencia en el histograma original",
            fill: true,
            lineTension: 0.1,
            backgroundColor: "white",
@@ -180,6 +190,29 @@ export default function Home() {
       </>
     }
     <canvas ref={expandido} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
+    {
+     IsImageOn &&  <Bar
+    
+     data={{
+       
+       labels: Fs,
+       datasets: [
+         {
+           label: "Frecuencia en el histograma expandido",
+           fill: true,
+           lineTension: 0.1,
+           backgroundColor: "white",
+           borderColor: "white",
+           borderCapStyle: "butt",
+           borderDash: [],
+           borderDashOffset: 0.0,
+           borderJoinStyle: "miter",
+           data: SecondHistogramChart,
+         },
+       ],
+     }}
+   />
+   }
     </div>
   </>
 }
