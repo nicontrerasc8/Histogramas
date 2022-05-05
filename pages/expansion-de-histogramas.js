@@ -107,24 +107,26 @@ export default function Home() {
           //expansión
           var pendent = 255/(max-min)
           var B = -(pendent*min)
+          console.log("a")
 
            for (let i = 0; i < scannedImage.data.length; i+=4) {
             var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
             var AV = Math.floor(total/3)
-             ExpandedImage.data[i] = AV*pendent + B;
-             ExpandedImage.data[i+1] = AV*pendent + B;
+             scannedImage.data[i] = AV*pendent + B;
+             scannedImage.data[i+1] = AV*pendent + B;
              ExpandedImage.data[i+2] = AV*pendent + B;
            }  
-          expandedContext.putImageData(ExpandedImage, 0, 0);
+     
           var SecondHistogramArr = []
           for (let i = 0; i < 256; i++) {
             var c = 0  
-            for (let j = 0; j < ExpandedImage.data.length; j+=4) {
-                  if(ExpandedImage.data[j] === i) ++c
+            for (let j = 0; j < scannedImage.data.length; j+=4) {
+                  if(scannedImage.data[j] === i) ++c
               }
               SecondHistogramArr.push(c)
           }
           setSecondHistogramChart(SecondHistogramArr)
+          expandedContext.putImageData(scannedImage, 0, 0);
           setIsImageOn(true)
 
       var x = 0;
