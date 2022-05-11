@@ -13,7 +13,7 @@ const NavBar = () => {
   return <>
   <nav>
     <Link href={"/"}>
-    <h2><FontAwesomeIcon icon={faTelevision}/> Histogramic</h2>
+    <h2>Histogramic</h2>
     </Link>
      <div>
      <Link href={"/ecualizacion-de-histogramas"}>

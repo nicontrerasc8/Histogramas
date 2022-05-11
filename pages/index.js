@@ -83,17 +83,23 @@ export default function Home() {
   
   return <>
     <div className="page">
-      <h1>¡Hola! Somos un grupo de estudiantes de UPC y hemos elaborado este programa. Elige si deseas ecualizar una imagen o si deseas expandirla.</h1>
-       <section className="double-team">
+      <h1>
+        Bienvenido a Histogramic, una web donde puedes 
+      </h1>
+       <section className="compas">
        <Link href={"/ecualizacion-de-histogramas"}>
-      <button>
+      <article>
+      <h3>
         Ecualizar un histograma
-      </button>
+      </h3>
+      </article>
       </Link>
       <Link href={"/expansion-de-histogramas"}>
-      <button>
+      <article>
+      <h3>
         Expandir un histograma
-      </button>
+      </h3>
+      </article>
       </Link> 
        </section>
     </div>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Rubik:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Boogaloo&family=Concert+One&family=Press+Start+2P&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -6,9 +7,13 @@
 }
 :root{
   --white: #ffffff;
-  --light-blue: #00b6da;
-  --purple: #7f15cf;
+  --light-blue: #4be1ff;
+  --purple: #a14fe0;
   --black: #000000;
+}
+h1, h2, h3, h4, h5, button{
+  font-family: 'Balsamiq Sans', cursive;
+  font-weight: 500;
 }
 body{
   background-color: #111111;
@@ -16,25 +21,35 @@ body{
   text-align: center;
 }
 nav{
-  background-image: linear-gradient(to right, var(--light-blue), var(--purple));
+  background-color: var(--black);
   color: var(--white);
-  padding: 2rem 5vw;
+  height: calc(3rem + 8vh);
+  padding: 0 5vw;
+  z-index: 10;
   position: sticky;
   top: 0;
   left: 0;
-  height: calc(5vh + 1rem);
   display: flex;
   text-align: center;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
+nav h2{
+  background: linear-gradient(90deg, var(--light-blue),var(--purple));
+  text-shadow: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: clamp(30px, calc(2vmax + 10px), calc(2vmax + 10px));
+}
 .nav-aside{
-  position: sticky;
+  position: fixed;
   z-index: 2;
-  top: calc(5vh + 1rem - 5px);
+  top: calc(10vh + 1rem);
+  width: 100%;
   left: 0;
-  background-image: linear-gradient(to right, var(--light-blue), var(--purple));
+  background: var(--black);
   display: none;
   flex-direction: column;
   gap: 10px;
@@ -68,7 +83,6 @@ align-items: center;
 
 nav .hamburger span{
   position: relative;
-  border-radius: 5px;
   width: 55px;
   transition: 500ms;
   height: 6px;
@@ -88,20 +102,14 @@ nav .hamburger span{
 nav div{
   display: flex;
   flex-direction: row;
-  grid-gap: 10px;
+  grid-gap: 1rem;
 }
 @media screen and (max-width: 768px) {
   nav .hamburger{display: flex;}
   nav div{display: none;}
   .nav-aside{display: flex;}
 }
-nav h2{
-  font-size: clamp(30px, calc(2vw + 10px), calc(2vw + 10px));
-}
-h1, h2, h3, h4, h5, button{
-  font-family: 'Balsamiq Sans', cursive;
-  font-weight: 500;
-}
+
 h1{
   font-size: calc(2vmax + 15px);
   margin-bottom: 1rem;
@@ -120,16 +128,27 @@ button.nav-btn{
   background-image: none;
   border:none;
   border-radius: 5px;
-  color: var(--black);
+  background: linear-gradient(90deg, var(--light-blue),var(--purple));
+  text-shadow: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  color: var(--white);
+  cursor: pointer;
   font-size: calc(1vmax + 10px);
   padding: 10px;
-  background-color: var(--white);
+  transition: .5s;
+  background-color: transparent;
+}
+button.nav-btn:hover{
+  transform: rotate(10deg);
+  box-shadow: 0px 0px 10px var(--white);
 }
 button{
-  background-image: linear-gradient(to right, var(--light-blue),var(--purple));
   color: var(--white);
+  background-color: transparent;
 }
-
 .page{
   margin-top: 2rem;
   color: var(--white);
@@ -239,4 +258,36 @@ h5{
 }
 .euclides h1{
   margin-top: 1rem;
+}
+.compas{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2rem;
+}
+.compas article{
+  width: clamp(300px, 40%, 40%);
+  background-color: var(--black);
+  border-radius: 10px;
+  position: relative;
+  transition: .5s;
+}
+.compas article:hover{
+  box-shadow: 0 0 10px var(--white);
+  transform: rotate(10deg);
+}
+.compas article h3{
+  background: linear-gradient(90deg, var(--light-blue),var(--purple));
+  text-shadow: none;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 1rem 5%;
+  font-size: calc(2vmax + 10px);
+}
+.compas article img{
+  width: 100%;
+  border-radius: 10px;
+  max-height: 400px;
 }
