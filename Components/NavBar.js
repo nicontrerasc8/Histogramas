@@ -16,14 +16,9 @@ const NavBar = () => {
     <h2>Histogramic</h2>
     </Link>
      <div>
-     <Link href={"/ecualizacion-de-histogramas"}>
+     <Link href={"/"}>
         <button className='nav-btn'>
-          Ecualización
-        </button>
-      </Link>
-     <Link href={"/expansion-de-histogramas"}>
-        <button className='nav-btn'>
-          Expansión
+          Inicio
         </button>
       </Link>
      <Link href={"/creditos"}>
@@ -39,14 +34,9 @@ const NavBar = () => {
      </section>
   </nav>
   <aside className={OpenNav ? "nav-aside" : "display-none"}>
-  <Link href={"/ecualizacion-de-histogramas"}>
+  <Link href={"/"}>
         <button className='nav-btn'>
-          Ecualización
-        </button>
-      </Link>
-     <Link href={"/expansion-de-histogramas"}>
-        <button className='nav-btn'>
-          Expansión
+          Inicio
         </button>
       </Link>
      <Link href={"/creditos"}>

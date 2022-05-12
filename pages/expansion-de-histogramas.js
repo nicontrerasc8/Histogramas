@@ -15,6 +15,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import Loader from "../Components/Loader";
 
 
 var Fs = []
@@ -29,16 +30,18 @@ export default function Home() {
   const canvasRef = useRef(null)
   const histogram1Ref = useRef(null)
   const expandido = useRef(null)
+  const [IsLoading, setIsLoading] = useState(false)
+  const [OriginalDownload, setOriginalDownload] = useState("")
+  const [ExpandedDownload, setExpandedDownload] = useState("")
   const [FirstHistogramChart, setFirstHistogramChart] = useState([])
   const [SecondHistogramChart, setSecondHistogramChart] = useState([])
-  const histogram2Ref = useRef(null)
   const [IsImageOn, setIsImageOn] = useState(false)
   const [MinValue, setMinValue] = useState(undefined)
   const [MaxValue, setMaxValue] = useState(undefined)
 
   // El e es el file que acabamos de colocar
   const imageChange = async (e) => {
-
+    setIsLoading(true)
     // validar si es que se eligió alguna imagen
     if (e.target.files && e.target.files.length > 0) {
       var theIMG = e.target.files[0]
@@ -87,7 +90,6 @@ export default function Home() {
               HistogramArr.push(c)
               if(c > highestValue) highestValue = c;
           }
-          console.log(HistogramArr)
           setFirstHistogramChart(HistogramArr)
           const ExpandedImage = scannedImage
           var auxArr = []
@@ -99,15 +101,15 @@ export default function Home() {
             scannedImage.data[i+2] = AV;
             auxArr.push(AV)
           }
-          console.log(min, max)
           setMaxValue(max)
           setMinValue(min)
           originalContext.putImageData(scannedImage, 0, 0);
+          var image = originalCanvas.toDataURL("image/png")
+          setOriginalDownload(image)
 
           //expansión
           var pendent = 255/(max-min)
           var B = -(pendent*min)
-          console.log("a")
 
            for (let i = 0; i < scannedImage.data.length; i+=4) {
             var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
@@ -127,6 +129,8 @@ export default function Home() {
           }
           setSecondHistogramChart(SecondHistogramArr)
           expandedContext.putImageData(scannedImage, 0, 0);
+          var image2 = expandedCanvas.toDataURL("image/png")
+          setExpandedDownload(image2)
           setIsImageOn(true)
 
       var x = 0;
@@ -138,51 +142,73 @@ export default function Home() {
          histo1Context.fillRect(x, histo1.height - height , F, height);
          histo1Context.stroke();
          x += F
-      } 
-      
+        } 
         }
       }
     }
   };
+
+  const Restart = () => {
+    setIsImageOn(false)
+    setFirstHistogramChart([])
+    setSecondHistogramChart([])
+    setOriginalDownload("")
+    setExpandedDownload("")
+  }
+
+  useEffect(() => {
+    if(IsImageOn == true) setIsLoading(false)
+  }, [IsImageOn])
+  
   
   return <>
+  {IsLoading && <Loader/>}
     <div className="page align-center">
       <h1>Expansión de un histograma: </h1>
       {/* De la 93 a la 101, es para que la imagen se muestre */}
-    <input
-          accept="image/*"
-          type="file"
-          id="file"
-          onChange={imageChange} /* Es la función que hace que la imagen se muestre en sus valores iniciales */
-        /> 
-         <label htmlFor="file">
-          Elige tu imagen
-        </label>
+    {
+      IsImageOn ? <button onClick={Restart} className="cool-btn">Reiniciar</button>
+      : <>
+      <input
+      accept="image/*"
+      type="file"
+      id="file"
+      onChange={imageChange} /* Es la función que hace que la imagen se muestre en sus valores iniciales */
+    /> 
+     <label htmlFor="file">
+      Elige tu imagen
+    </label>
+    </>
+    }
         
         {/* Línea 103 Este es el canvas de la imagen original de una escala de 42 a 214  */}
     <canvas ref={canvasRef} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
     {
-     IsImageOn &&  <Bar
-    
-     data={{
-       
-       labels: Fs,
-       datasets: [
-         {
-           label: "Frecuencia en el histograma original",
-           fill: true,
-           lineTension: 0.1,
-           backgroundColor: "white",
-           borderColor: "white",
-           borderCapStyle: "butt",
-           borderDash: [],
-           borderDashOffset: 0.0,
-           borderJoinStyle: "miter",
-           data: FirstHistogramChart,
-         },
-       ],
-     }}
-   />
+     IsImageOn &&  <>
+         <a className="cool-btn" download="imagen-original.png" href={OriginalDownload}>
+      Descargate la imagen
+    </a>
+      <Bar
+        data={{
+          
+          labels: Fs,
+          datasets: [
+            {
+              label: "Frecuencia en el histograma original",
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "white",
+              borderColor: "white",
+              borderCapStyle: "butt",
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: "miter",
+              data: FirstHistogramChart,
+            },
+          ],
+        }}
+      />
+     </>
    }
   <canvas ref={histogram1Ref} className={'display-none'}/> 
     {
@@ -193,27 +219,30 @@ export default function Home() {
     }
     <canvas ref={expandido} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
     {
-     IsImageOn &&  <Bar
-    
-     data={{
-       
-       labels: Fs,
-       datasets: [
-         {
-           label: "Frecuencia en el histograma expandido",
-           fill: true,
-           lineTension: 0.1,
-           backgroundColor: "white",
-           borderColor: "white",
-           borderCapStyle: "butt",
-           borderDash: [],
-           borderDashOffset: 0.0,
-           borderJoinStyle: "miter",
-           data: SecondHistogramChart,
-         },
-       ],
-     }}
-   />
+     IsImageOn && <>
+         <a className="cool-btn" download="imagen-expandida.png" href={ExpandedDownload}>
+      Descargate la imagen
+    </a>
+      <Bar
+          data={{  
+            labels: Fs,
+            datasets: [
+              {
+                label: "Frecuencia en el histograma expandido",
+                fill: true,
+                lineTension: 0.1,
+                backgroundColor: "white",
+                borderColor: "white",
+                borderCapStyle: "butt",
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: "miter",
+                data: SecondHistogramChart,
+              },
+            ],
+          }}
+      />
+     </> 
    }
     </div>
   </>

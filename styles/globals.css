@@ -11,7 +11,7 @@
   --purple: #a14fe0;
   --black: #000000;
 }
-h1, h2, h3, h4, h5, button{
+h1, h2, h3, h4, h5, button, a, label{
   font-family: 'Balsamiq Sans', cursive;
   font-weight: 500;
 }
@@ -56,6 +56,7 @@ nav h2{
   align-items: center;
   padding: 10px 5%;
 }
+
 ::-webkit-scrollbar{
   width: 1rem;
 }
@@ -86,7 +87,8 @@ nav .hamburger span{
   width: 55px;
   transition: 500ms;
   height: 6px;
-  background-color: var(--white);
+  border-radius: 5px;
+  background-image: linear-gradient(90deg, var(--light-blue), var(--purple));
 }
 .open-nav .hamburger-1{
   transform: rotate(45deg);
@@ -108,6 +110,9 @@ nav div{
   nav .hamburger{display: flex;}
   nav div{display: none;}
   .nav-aside{display: flex;}
+  .nav-aside button.nav-btn{
+    font-size: calc(2vmax + 1rem);
+  }
 }
 
 h1{
@@ -140,6 +145,19 @@ button.nav-btn{
   padding: 10px;
   transition: .5s;
   background-color: transparent;
+}
+button.nav-btn::before{
+  display: none;
+  content: "";
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  background: linear-gradient(90deg, var(--light-blue), var(--purple));
+  z-index: -1;
+  filter: blur(20px);
+}
+button.nav-btn:hover::before{
+  display: block;
 }
 button.nav-btn:hover{
   transform: rotate(10deg);
@@ -179,13 +197,7 @@ p{
   border: 3px solid;
   font-size: clamp(20px, calc(1vmax + 10px),calc(1vmax + 10px));
 }
-label{
-  font-weight: 600;
-  background-image: linear-gradient(to right, var(--light-blue), var(--purple));
-  color: var(--white);
-  border-radius: 5px;
-  font-size: clamp(20px, calc(1vmax + 10px),calc(1vmax + 10px));
-}
+
 .counter button{
   padding: 5px;
   background-color: transparent;
@@ -209,8 +221,7 @@ label{
   cursor: pointer;
 }
 .img-canvas{
-  height: clamp(300px, calc(20vmin + 30vmax),calc(20vmin + 30vmax));
-  width: clamp(300px, calc(20vmin + 30vmax),calc(20vmin + 30vmax));
+  max-width: 100%;
   margin: 1rem 0;
   border-radius: 5px;
 }
@@ -259,35 +270,77 @@ h5{
 .euclides h1{
   margin-top: 1rem;
 }
-.compas{
+.main-grid{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
 }
-.compas article{
-  width: clamp(300px, 40%, 40%);
+.main-grid article{
+  width: clamp(300px, 30%, 40%);
   background-color: var(--black);
   border-radius: 10px;
   position: relative;
+  cursor: pointer;
   transition: .5s;
 }
-.compas article:hover{
+.main-grid article:hover{
   box-shadow: 0 0 10px var(--white);
-  transform: rotate(10deg);
+  transform: translateY(-10px);
 }
-.compas article h3{
+.main-grid article h3{
   background: linear-gradient(90deg, var(--light-blue),var(--purple));
   text-shadow: none;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   padding: 1rem 5%;
-  font-size: calc(2vmax + 10px);
+  font-size: clamp(35px, calc(2vmax + 10px),calc(2vmax + 10px));
 }
-.compas article img{
+.main-grid article img{
   width: 100%;
   border-radius: 10px;
   max-height: 400px;
+}
+.cool-btn{
+  cursor: pointer;
+  margin: 1rem 0;
+  text-decoration: none;
+  padding: 10px;
+  font-size: calc(10px + 1vmax);
+  color: var(--light-blue);
+  box-shadow: 0 0 10px var(--light-blue);
+  border-radius: 5px;
+  transition: .5s;
+}
+.cool-btn:hover, label:hover{
+  color: var(--purple);
+  box-shadow: 0 0 10px var(--purple);
+}
+label{
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--white);
+  border-radius: 5px;
+  font-size: clamp(20px, calc(1vmax + 10px),calc(1vmax + 10px));
+  color: var(--light-blue);
+  box-shadow: 0 0 10px var(--light-blue);
+  transition: .5s;
+}
+.loader{
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  background-color: var(--black);
+  color: var(--light-blue);
+}
+.particles{
+  position: relative;
+  z-index: -1;
 }

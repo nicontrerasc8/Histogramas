@@ -17,13 +17,18 @@ const Compas = [
     name: "Andreas Calixto",
     img: "https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/WhatsApp%20Image%202022-05-11%20at%205.56.05%20PM.jpeg?alt=media&token=24f89613-13f5-4913-814b-0710589c3902",
     carrera: "Ing. de sistemas de información"
+  },
+  {
+    name:"Flavia Cáceres",
+    img: "https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/WhatsApp%20Image%202022-05-12%20at%201.53.02%20PM.jpeg?alt=media&token=cd8ad199-77e6-4bd2-8ea4-e6f5c4e259b7",
+    carrera: "Ing. de sistemas de información"
   }
 ]
 
 const Credits = () => {
   return <div className='page align-center creditos'>
        <h1>Créditos: </h1>
-       <div className='compas'>
+       <div className='main-grid'>
        {
          Compas && Compas.map((data, idx) => {
            return <article key={idx}>

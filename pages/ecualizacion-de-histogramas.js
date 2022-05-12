@@ -14,6 +14,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js'
+import Loader from '../Components/Loader';
 
 var Fs = []
 
@@ -27,12 +28,16 @@ const Ecualizar = () => {
     const canvasRef = useRef(null)
   const ecualizado = useRef(null)
   const [IsImageOn, setIsImageOn] = useState(false)
+  const [IsLoading, setIsLoading] = useState(false)
+  const [OriginalDownload, setOriginalDownload] = useState("")
+  const [EqualizedDownload, setEqualizedDownload] = useState("")
   const [FirstHistogramChart, setFirstHistogramChart] = useState([])
   const [SecondHistogramChart, setSecondHistogramChart] = useState([])
   const [MinValue, setMinValue] = useState(undefined)
   const [MaxValue, setMaxValue] = useState(undefined)
 
   const imageChange = async (e) => {
+    setIsLoading(true)
     if (e.target.files && e.target.files.length > 0) {
       var theIMG = e.target.files[0]
       var reader = new FileReader()
@@ -87,6 +92,8 @@ const Ecualizar = () => {
           setMinValue(min)
           setFirstHistogramChart(HistogramArr)
           originalContext.putImageData(scannedImage, 0, 0);
+          var image = originalCanvas.toDataURL("image/png")
+          setOriginalDownload(image)
           var auxOfFrequences = []
           var Frequence = 0
           for (let i = 0; i < 256; i++) {
@@ -123,48 +130,69 @@ const Ecualizar = () => {
           }
           setSecondHistogramChart(SecondHistogramArr)
           equalizedContext.putImageData(equalizedImage, 0, 0);
+          var image2 = equalizedCanvas.toDataURL("image/png")
+          setEqualizedDownload(image2)
           setIsImageOn(true)
         }
       }
     }
   };
 
+  const Restart = () => {
+    setIsImageOn(false)
+    setFirstHistogramChart([])
+    setSecondHistogramChart([])
+    setOriginalDownload("")
+    setEqualizedDownload("")
+  }
+
+  useEffect(() => {
+    if(IsImageOn == true) setIsLoading(false)
+  }, [IsImageOn])
+
   return <div className='page align-center'>
+    {IsLoading && <Loader/>}
        <h1>Ecualización de un histograma: </h1>
-      {/* De la 93 a la 101, es para que la imagen se muestre */}
-    <input
+       {
+          IsImageOn ? <button onClick={Restart} className="cool-btn">Reiniciar</button>
+          : <>
+          <input
           accept="image/*"
           type="file"
           id="file"
           onChange={imageChange} /* Es la función que hace que la imagen se muestre en sus valores iniciales */
         /> 
-         <label htmlFor="file">
+        <label htmlFor="file">
           Elige tu imagen
         </label>
-        {/* Línea 103 Este es el canvas de la imagen original de una escala de 42 a 214  */}
+        </>
+    }
     <canvas ref={canvasRef} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
     {
-     IsImageOn &&  <Bar
-    
-     data={{
-       
-       labels: Fs,
-       datasets: [
-         {
-           label: "Frecuencia en el histograma original",
-           fill: true,
-           lineTension: 0.1,
-           backgroundColor: "white",
-           borderColor: "white",
-           borderCapStyle: "butt",
-           borderDash: [],
-           borderDashOffset: 0.0,
-           borderJoinStyle: "miter",
-           data: FirstHistogramChart,
-         },
-       ],
-     }}
-   />
+     IsImageOn && <>
+     <a className="cool-btn" download="imagen-original.png" href={OriginalDownload}>
+      Descargate la imagen
+    </a>
+      <Bar
+        data={{
+          labels: Fs,
+          datasets: [
+            {
+              label: "Frecuencia en el histograma original",
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "white",
+              borderColor: "white",
+              borderCapStyle: "butt",
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: "miter",
+              data: FirstHistogramChart,
+            },
+          ],
+        }}
+      />
+     </>
    }
     {
       IsImageOn && <>
@@ -174,27 +202,31 @@ const Ecualizar = () => {
     }
     <canvas ref={ecualizado} className={IsImageOn ? 'img-canvas' : 'display-none'}/>
     {
-     IsImageOn &&  <Bar
-    
-     data={{
-       
-       labels: Fs,
-       datasets: [
-         {
-           label: "Frecuencia en el histograma original",
-           fill: true,
-           lineTension: 0.1,
-           backgroundColor: "white",
-           borderColor: "white",
-           borderCapStyle: "butt",
-           borderDash: [],
-           borderDashOffset: 0.0,
-           borderJoinStyle: "miter",
-           data: SecondHistogramChart,
-         },
-       ],
-     }}
-   />
+     IsImageOn && 
+     <>
+      <a className="cool-btn" download="imagen-ecualizada.png" href={EqualizedDownload}>
+      Descargate la imagen ecualizada
+    </a> 
+    <Bar
+        data={{  
+          labels: Fs,
+          datasets: [
+            {
+              label: "Frecuencia en el histograma original",
+              fill: true,
+              lineTension: 0.1,
+              backgroundColor: "white",
+              borderColor: "white",
+              borderCapStyle: "butt",
+              borderDash: [],
+              borderDashOffset: 0.0,
+              borderJoinStyle: "miter",
+              data: SecondHistogramChart,
+            },
+          ],
+        }}
+      />
+        </>
    }
   </div>
 }

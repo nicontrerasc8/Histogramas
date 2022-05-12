@@ -1,94 +1,101 @@
 import { getDisplayName } from "next/dist/shared/lib/utils";
 import Link from "next/link";
 import {useRef, useEffect, useState} from "react"
+import Loader from "../Components/Loader";
+import Particles from 'react-tsparticles'
+import { loadFull } from "tsparticles";
 
 export default function Home() {
 
-  const canvasRef = useRef(null)
-  const expandido = useRef(null)
+  const [IsLoading, setIsLoading] = useState(true)
 
-  const imageChange = async (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      var theIMG = e.target.files[0]
-      var reader = new FileReader()
-      reader.readAsDataURL(theIMG)
-      reader.onloadend = function (e) {
-        var myImage = new Image(); // Creates image object
-        myImage.src = e.target.result; // Assigns converted image to image object
-
-        myImage.onload = function(ev) {
-          var originalCanvas = canvasRef.current; // Creates a canvas object
-          var expandedCanvas = expandido.current
-          var originalContext = originalCanvas.getContext("2d"); // Creates a contect object
-          var expandedContext = expandedCanvas.getContext('2d')
-          originalCanvas.width = myImage.width; // Assigns image's width to canvas
-          originalCanvas.height = myImage.height; // Assigns image's height to canvas
-          expandedCanvas.width = myImage.width
-          expandedCanvas.height = myImage.height
-          originalContext.drawImage(myImage,0,0);
-          expandedContext.drawImage(myImage,0,0);
-          // Draws the image on canvas
-          const scannedImage = originalContext.getImageData(0,0, originalCanvas.width, originalCanvas.height)
-          const ExpandedImage = scannedImage
-          var auxArr = []
-          for (let i = 0; i < scannedImage.data.length; i+=4) {
-            var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
-            var AV = Math.floor(total/3)
-            if(AV < 42) AV = 42
-            if(AV > 214) AV = 214 
-            scannedImage.data[i] = AV;
-            scannedImage.data[i+1] = AV;
-            scannedImage.data[i+2] = AV;
-            
-            auxArr.push(AV)
-          }
-          auxArr.sort(function(a, b){return a - b})
-          var min = auxArr[0]
-          var max = auxArr[auxArr.length-1]
-          var TableArray = []
-          for (let i = 0; i < 256; i++) {
-            var c = 0;
-            for (let j = 0; j < auxArr.length; j++) {
-              if(i == auxArr[j]) ++c;
-            }
-            if(c > 0 && i > max) max = i
-
-            TableArray.push({
-              n: i,
-              f: c,
-            })
-          }
-          
-          setMaxValue(max)
-          setMinValue(min)
-          originalContext.putImageData(scannedImage, 0, 0);
-          var pendent = 255/(max-min)
-          var B = -(pendent*min)
-
-           for (let i = 0; i < scannedImage.data.length; i+=4) {
-            var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
-            var AV = Math.floor(total/3)
-             ExpandedImage.data[i] = AV*pendent + B;
-             ExpandedImage.data[i+1] = AV*pendent + B;
-             ExpandedImage.data[i+2] = AV*pendent + B;
-           } 
-           console.log(min,max)
-          expandedContext.putImageData(ExpandedImage, 0, 0);
-          setIsImageOn(true)
-          let imgData = originalCanvas.toDataURL("image/jpeg",0.75); // Assigns image base64 string in jpeg format to a variable
-        }
-      }
-    }
-  };
+  const HandleInit = async(main) => {
+    await loadFull(main)
+  } 
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000);
+  }, [])
+  
   
   return <>
+  <div className='particles'>
+     <Particles id='particles' init={HandleInit}
+  options={{
+    background: {
+      color: {
+        value: "#111111",
+      },
+    },
+    fpsLimit: 120,
+    interactivity: {
+      events: {
+        onClick: {
+          enable: true,
+          mode: "push",
+        },
+
+        resize: true,
+      },
+      modes: {
+        push: {
+          quantity: 4,
+        },
+        repulse: {
+          distance: 200,
+          duration: 0.4,
+        },
+      },
+    },
+    particles: {
+      color: {
+        value: "#ffffff",
+      },
+      collisions: {
+        enable: true,
+      },
+      move: {
+        direction: "none",
+        enable: true,
+        outModes: {
+          default: "bounce",
+        },
+        random: false,
+        speed: 4,
+        straight: false,
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800,
+        },
+        value: 80,
+      },
+      opacity: {
+        value: 0.5,
+      },
+      shape: {
+        type: "circle",
+      },
+      size: {
+        value: { min: 1, max: 5 },
+      },
+    },
+    detectRetina: true,
+  }}
+  />
+  </div>
     <div className="page">
-      <h1>
+    {IsLoading && <Loader/>}
+      <h1 style={{marginBottom: "2rem"}}>
         Bienvenido a Histogramic, una web donde puedes 
       </h1>
-       <section className="compas">
+       <section className="main-grid">
        <Link href={"/ecualizacion-de-histogramas"}>
       <article>
+        <img src="https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/Dise%C3%B1o_sin_t%C3%ADtulo__12_-removebg-preview.png?alt=media&token=88a234b4-96fd-4a41-ad94-ad4de1c94a90"/>
       <h3>
         Ecualizar un histograma
       </h3>
@@ -96,6 +103,7 @@ export default function Home() {
       </Link>
       <Link href={"/expansion-de-histogramas"}>
       <article>
+      <img src="https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/imagen-expandida__1_-removebg-preview.png?alt=media&token=d25587d7-aaa1-48e6-bfd9-4873a628d27a"/>
       <h3>
         Expandir un histograma
       </h3>
