@@ -43,16 +43,16 @@ const Ecualizar = () => {
       var reader = new FileReader()
       reader.readAsDataURL(theIMG)
       reader.onloadend = function (e) {
-        var myImage = new Image(); // Creates image object
-        myImage.src = e.target.result; // Assigns converted image to image object
+        var myImage = new Image(); 
+        myImage.src = e.target.result; 
 
         myImage.onload = function(ev) {
-          var originalCanvas = canvasRef.current; // Creates a canvas object
+          var originalCanvas = canvasRef.current; 
           var equalizedCanvas = ecualizado.current
-          var originalContext = originalCanvas.getContext("2d"); // Creates a contect object
+          var originalContext = originalCanvas.getContext("2d"); 
           var equalizedContext = equalizedCanvas.getContext('2d')
-          originalCanvas.width = myImage.width; // Assigns image's width to canvas
-          originalCanvas.height = myImage.height; // Assigns image's height to canvas
+          originalCanvas.width = myImage.width; 
+          originalCanvas.height = myImage.height; 
           equalizedCanvas.width = myImage.width
           equalizedCanvas.height = myImage.height
           originalContext.drawImage(myImage,0,0);
@@ -69,22 +69,20 @@ const Ecualizar = () => {
             scannedImage.data[i+2] = AV;
             auxArr.push(AV)
           }
+          
           auxArr.sort(function(a, b){return a - b})
           var min = auxArr[0]
           var max = auxArr[auxArr.length-1]
+          
           var HistogramArr = []
-          var TableArray = []
+
           for (let i = 0; i < 256; i++) {
             var c = 0;
             for (let j = 0; j < auxArr.length; j++) {
               if(i == auxArr[j]) ++c;
             }
             if(c > 0 && i > max) max = i
-
-            TableArray.push({
-              n: i,
-              f: c,
-            })
+            
             HistogramArr.push(c)
           }
           
@@ -108,7 +106,6 @@ const Ecualizar = () => {
                   newValue: Math.round(255*Frequence/(scannedImage.data.length/4))
               })
           }
-          console.log(auxOfFrequences)
           for (let i = 0; i < scannedImage.data.length; i+=4) {
             var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
             var AV = Math.floor(total/3)

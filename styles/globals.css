@@ -160,8 +160,12 @@ button.nav-btn:hover::before{
   display: block;
 }
 button.nav-btn:hover{
-  transform: rotate(10deg);
   box-shadow: 0px 0px 10px var(--white);
+}
+@media screen and (min-width: 767px) {
+  button.nav-btn:hover{
+    transform: rotate(10deg);
+  }
 }
 button{
   color: var(--white);

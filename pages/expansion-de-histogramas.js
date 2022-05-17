@@ -91,7 +91,7 @@ export default function Home() {
               if(c > highestValue) highestValue = c;
           }
           setFirstHistogramChart(HistogramArr)
-          const ExpandedImage = scannedImage
+
           var auxArr = []
           for (let i = 0; i < scannedImage.data.length; i+=4) {
             var total = scannedImage.data[i] + scannedImage.data[i+1] + scannedImage.data[i+2]
@@ -116,7 +116,7 @@ export default function Home() {
             var AV = Math.floor(total/3)
              scannedImage.data[i] = AV*pendent + B;
              scannedImage.data[i+1] = AV*pendent + B;
-             ExpandedImage.data[i+2] = AV*pendent + B;
+             scannedImage.data[i+2] = AV*pendent + B;
            }  
      
           var SecondHistogramArr = []
@@ -132,17 +132,6 @@ export default function Home() {
           var image2 = expandedCanvas.toDataURL("image/png")
           setExpandedDownload(image2)
           setIsImageOn(true)
-
-      var x = 0;
-      var F = histo1.width/256
-       for (let i = 0; i < FrequenceArr.length; i++) {
-         var height = histo1.height * (5/6 * (highestValue-(highestValue-FrequenceArr[i].counter))) / highestValue
-        histo1Context.fillStyle = "white";
-         histo1Context.beginPath();
-         histo1Context.fillRect(x, histo1.height - height , F, height);
-         histo1Context.stroke();
-         x += F
-        } 
         }
       }
     }
