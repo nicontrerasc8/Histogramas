@@ -22,7 +22,12 @@ const Compas = [
     name:"Flavia Cáceres",
     img: "https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/WhatsApp%20Image%202022-05-12%20at%201.53.02%20PM.jpeg?alt=media&token=cd8ad199-77e6-4bd2-8ea4-e6f5c4e259b7",
     carrera: "Ing. de sistemas de información"
-  }
+  },
+  {
+    name:"Arián Tapia",
+    img: "https://firebasestorage.googleapis.com/v0/b/prochristo-b4aea.appspot.com/o/WhatsApp%20Image%202022-05-18%20at%209.38.07%20AM.jpeg?alt=media&token=db94a4eb-9381-47dd-82c9-19a2296ded18",
+    carrera: "Ing. de sistemas de información"
+  },
 ]
 
 const Credits = () => {
